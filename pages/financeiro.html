@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Company | Financeiro</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/financeiro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><h2><i class="fa-solid fa-terminal"></i> RIGHT COMPANY</h2></div>
+            <nav class="sidebar-menu">
+                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> OVERVIEW</a>
+                <a href="produtos.html"><i class="fa-solid fa-box"></i> PRODUTOS</a>
+                <a href="#" class="active"><i class="fa-solid fa-wallet"></i> FINANCEIRO</a>
+                <a href="clientes.html"><i class="fa-solid fa-users"></i> CLIENTES</a>
+                <a href="relatorios.html"><i class="fa-solid fa-file-invoice-dollar"></i> RELATÓRIOS</a>
+                <a href="servicos.html"><i class="fa-solid fa-gears"></i> SERVIÇOS</a>
+            </nav>
+            <div class="sidebar-footer"><a href="../login.html"><i class="fa-solid fa-power-off"></i> LOGOUT</a></div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>FLUXO FINANCEIRO</h1>
+                    <p>Controle de Entradas, Custos Operacionais e Contratos Fixos</p>
+                </div>
+            </header>
+
+            <div class="finance-layout">
+                <section class="form-section">
+                    <div class="finance-card">
+                        <h3><i class="fa-solid fa-plus"></i> NOVA TRANSAÇÃO</h3>
+                        <form id="formFinanceiro">
+                            <div class="form-group">
+                                <label for="descTransacao">DESCRIÇÃO DA MOVIMENTAÇÃO</label>
+                                <input type="text" id="descTransacao" required placeholder="Ex: Criação de Website (Ordem: RIGHT-001)">
+                            </div>
+                            <div class="form-group">
+                                <label for="valorTransacao">VALOR (R$)</label>
+                                <input type="number" id="valorTransacao" step="0.01" required placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoTransacao">TIPO DE TRANSAÇÃO</label>
+                                <select id="tipoTransacao" required>
+                                    <option value="" disabled selected>-- SELECIONE UMA CATEGORIA --</option>
+                                    <option value="entrada">ENTRADA</option>
+                                    <option value="saida">SAÍDA</option>
+                                    <option value="renda_mensal">MENSALMENTE</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary">REGISTRAR TRANSAÇÃO</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="table-section">
+                    <div class="finance-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px;">
+                            <h3 style="margin: 0;"><i class="fa-solid fa-list-ol"></i> EXTRATO DE OPERAÇÕES</h3>
+                            
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label for="filtroTipo" style="font-size: 0.75rem; color: #a78bfa; font-weight: bold; font-family: monospace;">FILTRAR Categoria:</label>
+                                <select id="filtroTipo" style="padding: 0.4rem 0.8rem; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 4px; color: white; font-family: monospace; font-size: 0.8rem; outline: none; cursor: pointer;">
+                                    <option value="todos">MOSTRAR TODAS</option>
+                                    <option value="entrada">ENTRADA</option>
+                                    <option value="saida">SAÍDA</option>
+                                    <option value="renda_mensal">MENSALMENTE</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="overflow-x: auto;">
+                            <table class="data-table">
+                               <thead>
+                                   <tr>
+                                       <th>DESCRIÇÃO</th>
+                                       <th>VALOR</th>
+                                       <th>CATEGORIA</th>
+                                       <th style="text-align: center;">AÇÕES</th>
+                                   </tr>
+                               </thead>
+                               <tbody id="listaTransacoes">
+                                   </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/financeiro.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Company | Dashboard</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2><i class="fa-solid fa-terminal"></i> RIGHT COMPANY</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="active"><i class="fa-solid fa-chart-pie"></i> OVERVIEW</a>
+                <a href="produtos.html"><i class="fa-solid fa-box"></i> PRODUTOS</a>
+                <a href="financeiro.html"><i class="fa-solid fa-wallet"></i> FINANCEIRO</a>
+                <a href="clientes.html"><i class="fa-solid fa-users"></i> CLIENTES</a>
+                <a href="relatorios.html"><i class="fa-solid fa-file-invoice-dollar"></i> RELATÓRIOS</a>
+                <a href="servicos.html"><i class="fa-solid fa-gears"></i> SERVIÇOS</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../login.html"><i class="fa-solid fa-power-off"></i> LOGOUT</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>SISTEMA DE OVERVIEW</h1>
+                    <p>Métricas Operacionais Baseadas em Dados Reais</p>
+                </div>
+            </header>
+
+<section class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+    <div class="metric-card">
+        <h3>RECEITA LÍQUIDA</h3>
+        <h2 id="dashReceita">R$ 0,00</h2>
+        <span class="green">// fluxo de caixa</span>
+    </div>
+    <div class="metric-card">
+        <h3>CUSTO OPERACIONAL</h3>
+        <h2 id="dashCusto" class="red-text">R$ 0,00</h2>
+        <span class="red">// total de saídas</span>
+    </div>
+    <div class="metric-card">
+        <h3>RENDA MENSAL</h3>
+        <h2 id="dashRendaMensal" style="color: #38bdf8;">R$ 0,00</h2> <span style="color: #38bdf8;">// serviços mensais</span>
+    </div>
+    <div class="metric-card">
+        <h3>SERVIÇOS ATIVOS</h3>
+        <h2 id="dashServicos">0</h2>
+        <span class="purple">// ordens registradas</span>
+    </div>
+</section>
+
+            <section class="charts-section">
+                <div class="chart-box">
+                    <h3>RENDIMENTO FINANCEIRO (ENTRADAS x SAÍDAS)</h3>
+                    <canvas id="graficoLinha"></canvas>
+                </div>
+                <div class="chart-box-mini">
+                    <h3>STATUS DE SERVIÇOS</h3>
+                    <canvas id="graficoRosca"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

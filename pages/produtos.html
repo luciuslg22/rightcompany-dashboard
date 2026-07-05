@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Company | Produtos</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/produtos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2><i class="fa-solid fa-terminal"></i> RIGHT COMPANY</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> OVERVIEW</a>
+                <a href="#" class="active"><i class="fa-solid fa-box"></i> PRODUTOS</a>
+                <a href="financeiro.html"><i class="fa-solid fa-wallet"></i> FINANCEIRO</a>
+                <a href="clientes.html"><i class="fa-solid fa-users"></i> CLIENTES</a>
+                <a href="relatorios.html"><i class="fa-solid fa-file-invoice-dollar"></i> RELATÓRIOS</a>
+                <a href="servicos.html"><i class="fa-solid fa-gears"></i> SERVIÇOS</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../login.html"><i class="fa-solid fa-power-off"></i> LOGOUT</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>REPOSITÓRIO DE PRODUTOS</h1>
+                    <p>Controle de Módulos, Hardwares e Licenças Ativas</p>
+                </div>
+            </header>
+
+            <div class="products-layout">
+                <section class="form-section">
+                    <div class="product-card">
+                        <h3 id="formTitle"><i class="fa-solid fa-plus"></i> REGISTRAR PRODUTO</h3>
+                        <form id="formProduto">
+                            <input type="hidden" id="editandoIndex" value="">
+
+                            <div class="form-group">
+                                <label for="prodCodigo">CÓDIGO DO PRODUTO</label>
+                                <input type="text" id="prodCodigo" required placeholder="Ex: RIGHT-9011">
+                            </div>
+                            <div class="form-group">
+                                <label for="prodNome">NOME DO PRODUTO</label>
+                                <input type="text" id="prodNome" required placeholder="Ex: Website Personalizado">
+                            </div>
+                            <div class="form-group">
+                                <label for="prodCategoria">CATEGORIA</label>
+                                <input type="text" id="prodCategoria" required placeholder="Ex: Programação">
+                            </div>
+                            <div class="form-group">
+                                <label for="prodPreco">PREÇO (R$)</label>
+                                <input type="number" id="prodPreco" step="0.01" required placeholder="0.00">
+                            </div>
+                            
+                            <button type="submit" class="btn-primary" id="btnSubmitForm">CADASTRAR PRODUTO</button>
+                            <button type="button" class="btn-secondary hidden" id="btnCancelarEdicao" onclick="cancelarEdicao()">CANCELAR ALTERAÇÃO</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="table-section">
+                    <div class="product-card">
+                        <h3><i class="fa-solid fa-layer-group"></i> ITENS NO SISTEMA</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                               <thead>
+                                   <tr>
+                                       <th>CÓDIGO</th>
+                                       <th>NOME DO PRODUTO</th>
+                                       <th>CATEGORIA</th>
+                                       <th>PREÇO (R$)</th>
+                                       <th style="text-align: center;">AÇÕES</th>
+                                   </tr>
+                               </thead>
+                               <tbody id="listaProdutos">
+                                   </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/produtos.js"></script>
+</body>
+</html>

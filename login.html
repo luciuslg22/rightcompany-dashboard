@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Company | Login</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <div class="logo-icon-wrapper">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <h2>RIGHT COMPANY</h2>
+                <p>Insira a chave de acesso para iniciar a sessão</p>
+            </div>
+
+            <form id="formLogin">
+                <div class="input-group">
+                    <label for="email">IDENTIFICAÇÃO (E-MAIL)</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <input type="email" id="email" required placeholder="usuario@rightcompany.com">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">CÓDIGO DE SEGURANÇA (SENHA)</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="senha" required placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div id="mensagemErro" class="error-msg hidden">
+                    <i class="fa-solid fa-bug"></i> Acesso negado. Credenciais inválidas.
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <span>INICIALIZAR SISTEMA</span> <i class="fa-solid fa-power-off"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

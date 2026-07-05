@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Company | Clientes</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/clientes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2><i class="fa-solid fa-terminal"></i> RIGHT COMPANY</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> OVERVIEW</a>
+                <a href="produtos.html"><i class="fa-solid fa-box"></i> PRODUTOS</a>
+                <a href="financeiro.html"><i class="fa-solid fa-wallet"></i> FINANCEIRO</a>
+                <a href="#" class="active"><i class="fa-solid fa-users"></i> CLIENTES</a>
+                <a href="relatorios.html"><i class="fa-solid fa-file-invoice-dollar"></i> RELATÓRIOS</a>
+                <a href="servicos.html"><i class="fa-solid fa-gears"></i> SERVIÇOS</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../login.html"><i class="fa-solid fa-power-off"></i> LOGOUT</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>BASE DE CLIENTES</h1>
+                    <p>Gerenciamento de Identidades, Contatos e Avaliações</p>
+                </div>
+                <button id="btnAbrirModal" class="btn-primary">
+                    <i class="fa-solid fa-user-plus"></i> NOVO CLIENTE
+                </button>
+            </header>
+
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="buscaId" placeholder="Filtrar por CÓDIGO / ID DO CLIENTE...">
+            </div>
+
+            <section class="customers-section">
+                <div class="table-container">
+                    <table class="cyber-table">
+                        <thead>
+                            <tr>
+                                <th>ID DO CLIENTE</th>
+                                <th>NOME</th>
+                                <th>EMPRESA</th>
+                                <th>CONTATO</th>
+                                <th>AVALIAÇÃO DO CLIENTE</th>
+                                <th style="text-align: center;">AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaClientes">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modalCliente" class="modal-container hidden">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2 id="modalTitle">// REGISTRAR NOVO CLIENTE</h2>
+                <button id="btnFecharModal" class="btn-close">&times;</button>
+            </div>
+            <form id="formNovoCliente">
+                <input type="hidden" id="editandoIndex" value="">
+
+                <div class="form-group">
+                    <label for="cliId">ID DO CLIENTE</label>
+                    <input type="text" id="cliId" required placeholder="Ex: RIGHT-COMPANY-022">
+                </div>
+                <div class="form-group">
+                    <label for="cliNome">NOME</label>
+                    <input type="text" id="cliNome" required placeholder="Ex: Lúcius Gomes">
+                </div>
+                <div class="form-group">
+                    <label for="cliEmpresa">EMPRESA</label>
+                    <input type="text" id="cliEmpresa" required placeholder="Ex: Right Company Ltda.">
+                </div>
+                <div class="form-group">
+                    <label for="cliContato">CONTATO (WHATSAPP, INSTAGRAM, EMAIL, ETC.)</label>
+                    <input type="text" id="cliContato" required placeholder="Ex: (21) 99999-9999 ou @usuario">
+                </div>
+<div class="form-group">
+    <label for="cliAvaliacao">AVALIAÇÃO DA EXPERIÊNCIA (NOTA OU STATUS)</label>
+    <select id="cliAvaliacao" required>
+        <option value="" disabled selected>-- SELECIONE UMA CATEGORIA --</option>
+        <option value="andamento">⏳ (Em Andamento)</option> 
+        <option value="5">⭐⭐⭐⭐⭐ (Excelente)</option>
+        <option value="4">⭐⭐⭐⭐ (Bom)</option>
+        <option value="3">⭐⭐⭐ (Regular)</option>
+        <option value="2">⭐⭐ (Ruim)</option>
+        <option value="1">⭐ (Péssimo)</option>
+    </select>
+</div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;" id="btnSubmitModal">
+                    SALVAR NOVO CLIENTE <i class="fa-solid fa-user-check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/clientes.js"></script>
+</body>
+</html>

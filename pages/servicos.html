@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Company | Serviços</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/servicos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2><i class="fa-solid fa-terminal"></i> RIGHT COMPANY</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> OVERVIEW</a>
+                <a href="produtos.html"><i class="fa-solid fa-box"></i> PRODUTOS</a>
+                <a href="financeiro.html"><i class="fa-solid fa-wallet"></i> FINANCEIRO</a>
+                <a href="clientes.html"><i class="fa-solid fa-users"></i> CLIENTES</a>
+                <a href="relatorios.html"><i class="fa-solid fa-file-invoice-dollar"></i> RELATÓRIOS</a>
+                <a href="#" class="active"><i class="fa-solid fa-gears"></i> SERVIÇOS</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../login.html"><i class="fa-solid fa-power-off"></i> LOGOUT</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>GERENCIAMENTO DE SERVIÇOS</h1>
+                    <p>Controle de Ordens, Manutenções e Atividades Prestadas</p>
+                </div>
+            </header>
+
+            <div class="services-layout">
+                <section class="form-section">
+                    <div class="service-card">
+                        <h3 id="formTitle"><i class="fa-solid fa-plus"></i> REGISTRAR SERVIÇO</h3>
+                        <form id="formServico">
+                            <input type="hidden" id="editandoIndex" value="">
+
+                            <div class="form-group">
+                                <label for="osCodigo">Nº ORDEM DE SERVIÇO</label>
+                                <input type="text" id="osCodigo" required placeholder="Ex: RIGHT-001">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="osClienteId">ID DO CLIENTE</label>
+                                <input type="text" id="osClienteId" required placeholder="Ex: RIGHT-COMPANY-022">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nomeServico">NOME DO SERVIÇO</label>
+                                <input type="text" id="nomeServico" required placeholder="Ex: Website Personalizado">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="precoServico">VALOR DO SERVIÇO (R$)</label>
+                                <input type="number" id="precoServico" step="0.01" required placeholder="0.00">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="statusServico">STATUS INICIAL</label>
+                                <select id="statusServico" required>
+                                    <option value="" disabled selected>-- SELECIONE UMA CATEGORIA --</option>
+                                    <option value="Em Andamento">EM ANDAMENTO</option>
+                                    <option value="Concluído">CONCLUÍDO</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn-primary" id="btnSubmitForm">CADASTRAR SERVIÇO</button>
+                            <button type="button" class="btn-secondary hidden" id="btnCancelarEdicao" onclick="cancelarEdicao()">CANCELAR ALTERAÇÃO</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="table-section">
+                    <div class="service-card">
+                        <h3><i class="fa-solid fa-list-check"></i> HISTÓRICO DE ATIVIDADES</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                               <thead>
+                                   <tr>
+                                       <th>O.S.</th>
+                                       <th>CLIENTE</th>
+                                       <th>SERVIÇO</th>
+                                       <th>VALOR</th>
+                                       <th>STATUS</th>
+                                       <th style="text-align: center;">AÇÕES</th>
+                                   </tr>
+                               </thead>
+                               <tbody id="listaServicos">
+                               </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/servicos.js"></script>
+</body>
+</html>
