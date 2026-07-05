@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicializando... | Right Company</title>
+    <link rel="stylesheet" href="css/global.css">
+    <style>
+        body {
+            background: #0b0314;
+            color: #a78bfa;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .loader {
+            border: 4px solid rgba(167, 139, 250, 0.1);
+            border-top: 4px solid #a855f7;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loader"></div>
+    <div id="status">INICIALIZANDO INTERFACE DE DIRETÓRIO...</div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('status').innerText = "ACESSO AUTORIZADO. REDIRECIONANDO...";
+            setTimeout(() => {
+                window.location.href = "pages/dashboard.html";
+            }, 800);
+        }, 1500);
+    </script>
+</body>
+</html>
