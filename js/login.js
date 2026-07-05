@@ -37,7 +37,7 @@ document.getElementById('formLogin').addEventListener('submit', function(event) 
         localStorage.setItem('usuarioLogado', usuarioValido.nome);
         
 
-        window.location.href = "./index.html"; 
+        window.location.href = "./home.html"; 
     } else {
         mensagemErro.classList.remove('hidden');
     }
