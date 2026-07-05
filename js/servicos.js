@@ -1,4 +1,3 @@
-
 const SUPABASE_URL = "https://fqzvdjvktaqlvfncfyhs.supabase.co"; 
 const SUPABASE_KEY = "sb_publishable_KCwZY0jEeqoHIwrRP6-z3g_iGK0v2C2"; 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -10,13 +9,12 @@ const btnSubmit = document.getElementById('btnSubmitForm');
 const btnCancelar = document.getElementById('btnCancelarEdicao');
 const inputEditandoIndex = document.getElementById('editandoIndex');
 
-
 let servicos = [];
 
 async function renderizarServicos() {
     try {
         const { data, error } = await supabaseClient
-            .from('rightcompanydashboard')
+            .from('servicos')
             .select('*')
             .order('created_at', { ascending: false }); 
 
@@ -90,14 +88,14 @@ formServico.addEventListener('submit', async function(e) {
     try {
         if (idEdicao !== "") {
             const { error } = await supabaseClient
-                .from('rightcompanydashboard')
+                .from('servicos')
                 .update(dadosServico)
                 .eq('id', idEdicao);
 
             if (error) throw error;
         } else {
             const { error } = await supabaseClient
-                .from('rightcompanydashboard')
+                .from('servicos')
                 .insert([dadosServico]);
 
             if (error) throw error;
@@ -116,7 +114,7 @@ window.deletarServico = async function(id) {
 
     try {
         const { error } = await supabaseClient
-            .from('rightcompanydashboard')
+            .from('servicos')
             .delete()
             .eq('id', id);
 
