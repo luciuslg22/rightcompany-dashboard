@@ -1,8 +1,6 @@
-let baseClientes = JSON.parse(localStorage.getItem('clientes')) || [
-    { id: "CLI-1024", nome: "Linus Torvalds", empresa: "Linux Foundation", contato: "linus@kernel.org", avaliacao: "5" },
-    { id: "CLI-4401", nome: "Ada Lovelace", empresa: "Analytical Engine Corp", contato: "(11) 98888-7777", avaliacao: "4" },
-    { id: "CLI-7892", nome: "Neo Anderson", empresa: "Matrix Code Inc.", contato: "@neo_nebula", avaliacao: "3" }
-];
+const SUPABASE_URL = "https://fqzvdjvktaqlvfncfyhs.supabase.co"; 
+const SUPABASE_KEY = "sb_publishable_KCwZY0jEeqoHIwrRP6-z3g_iGK0v2C2"; 
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const modal = document.getElementById('modalCliente');
 const btnAbrir = document.getElementById('btnAbrirModal');
@@ -13,110 +11,145 @@ const inputBusca = document.getElementById('buscaId');
 const modalTitle = document.getElementById('modalTitle');
 const inputEditandoIndex = document.getElementById('editandoIndex');
 
-btnAbrir.addEventListener('click', () => {
-    modalTitle.innerText = "// REGISTRAR NOVO CLIENTE";
-    inputEditandoIndex.value = ""; 
-    form.reset();
-    document.getElementById('cliId').disabled = false; 
-    modal.classList.remove('hidden');
-});
+let baseClientes = [];
 
-btnFechar.addEventListener('click', () => modal.classList.add('hidden'));
-
-function renderizarClientes(filtro = "") {
-    const tabelaBody = document.getElementById('listaClientes');
-    tabelaBody.innerHTML = "";
-
-    baseClientes.forEach((cliente, index) => {
-        if (filtro && !cliente.id.toLowerCase().includes(filtro.toLowerCase())) {
-            return;
-        }
-
-        const estrelas = "⭐".repeat(parseInt(cliente.avaliacao || 5));
-
-        const linha = document.createElement('tr');
-        linha.innerHTML = `
-            <td style="color: #a78bfa; font-weight: bold;">${cliente.id}</td>
-            <td style="color: #fff; font-weight: bold;"><i class="fa-solid fa-user-astronaut" style="margin-right: 8px; color: rgba(167, 139, 250, 0.6)"></i>${cliente.nome}</td>
-            <td>${cliente.empresa}</td>
-            <td style="color: #cbd5e1; font-family: monospace;">${cliente.contato}</td>
-            <td><span class="stars-badge">${starsHTML(cliente.avaliacao)}</span></td>
-            <td style="text-align: center;">
-                <!-- NOVO: Botão Editar passa o index do elemento -->
-                <button class="btn-edit" onclick="prepararEdicao(${index})">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button class="btn-delete" onclick="removerCliente('${cliente.id}')">
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
-            </td>
-        `;
-        tabelaBody.appendChild(linha);
+if (btnAbrir) {
+    btnAbrir.addEventListener('click', () => {
+        modalTitle.innerText = "// REGISTRAR NOVO CLIENTE";
+        inputEditandoIndex.value = ""; 
+        form.reset();
+        modal.classList.remove('hidden');
     });
+}
+
+if (btnFechar) {
+    btnFechar.addEventListener('click', () => modal.classList.add('hidden'));
+}
+
+async function renderizarClientes(filtro = "") {
+    const tabelaBody = document.getElementById('listaClientes');
+    if (!tabelaBody) return;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('clientes')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        baseClientes = data || [];
+
+        tabelaBody.innerHTML = "";
+
+        baseClientes.forEach((cliente) => {
+            const codigoTexto = `CLI-${String(cliente.id).padStart(4, '0')}`;
+            
+            if (filtro && !codigoTexto.toLowerCase().includes(filtro.toLowerCase()) && !cliente.nome.toLowerCase().includes(filtro.toLowerCase())) {
+                return;
+            }
+
+            const linha = document.createElement('tr');
+            linha.innerHTML = `
+                <td style="color: #a78bfa; font-weight: bold;">${codigoTexto}</td>
+                <td style="color: #fff; font-weight: bold;"><i class="fa-solid fa-user-astronaut" style="margin-right: 8px; color: rgba(167, 139, 250, 0.6)"></i>${cliente.nome || ''}</td>
+                <td>${cliente.empresa || ''}</td>
+                <td style="color: #cbd5e1; font-family: monospace;">${cliente.contato || ''}</td>
+                <td><span class="stars-badge">${starsHTML(cliente.avaliacao)}</span></td>
+                <td style="text-align: center;">
+                    <button class="btn-edit" onclick="prepararEdicao(${cliente.id})">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn-delete" onclick="removerCliente(${cliente.id})">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td>
+            `;
+            tabelaBody.appendChild(linha);
+        });
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
 function starsHTML(nota) {
     if (nota === 'andamento') {
-        return "⏳  Em Andamento";
+        return "⏳   Em Andamento";
     }
     return "⭐".repeat(parseInt(nota || 5));
 }
 
-inputBusca.addEventListener('input', function() {
-    renderizarClientes(this.value);
-});
-
-window.removerCliente = function(id) {
-    baseClientes = baseClientes.filter(cliente => cliente.id !== id);
-    localStorage.setItem('clientes', JSON.stringify(baseClientes));
-    renderizarClientes(inputBusca.value);
+if (inputBusca) {
+    inputBusca.addEventListener('input', function() {
+        renderizarClientes(this.value);
+    });
 }
 
-window.prepararEdicao = function(index) {
-    const cliente = baseClientes[index];
+window.removerCliente = async function(id) {
+    if (!confirm("Tem certeza que deseja remover este cliente?")) return;
+
+    try {
+        const { error } = await supabaseClient
+            .from('clientes')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+        await renderizarClientes(inputBusca ? inputBusca.value : "");
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+window.prepararEdicao = function(id) {
+    const cliente = baseClientes.find(c => c.id === id);
+    if (!cliente) return;
     
     modalTitle.innerText = "// EDITAR_DADOS_CLIENTE";
-    inputEditandoIndex.value = index; 
+    inputEditandoIndex.value = id; 
 
-    // Preenche o formulário
-    document.getElementById('cliId').value = cliente.id;
-    document.getElementById('cliId').disabled = true; 
-    document.getElementById('cliNome').value = cliente.nome;
-    document.getElementById('cliEmpresa').value = cliente.empresa;
-    document.getElementById('cliContato').value = cliente.contato;
-    document.getElementById('cliAvaliacao').value = cliente.avaliacao;
+    document.getElementById('cliNome').value = cliente.nome || '';
+    document.getElementById('cliEmpresa').value = cliente.empresa || '';
+    document.getElementById('cliContato').value = cliente.contato || '';
+    document.getElementById('cliAvaliacao').value = cliente.avaliacao || '5';
 
     modal.classList.remove('hidden');
 }
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
+if (form) {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-    const id = document.getElementById('cliId').value;
-    const nome = document.getElementById('cliNome').value;
-    const empresa = document.getElementById('cliEmpresa').value;
-    const contato = document.getElementById('cliContato').value;
-    const avaliacao = document.getElementById('cliAvaliacao').value;
-    const indexEdicao = inputEditandoIndex.value;
+        const nome = document.getElementById('cliNome').value;
+        const empresa = document.getElementById('cliEmpresa').value;
+        const contato = document.getElementById('cliContato').value;
+        const avaliacao = document.getElementById('cliAvaliacao').value;
+        const idEdicao = inputEditandoIndex.value;
 
-    const dadosCliente = { id, nome, empresa, contato, avaliacao };
+        const dadosCliente = { nome, empresa, contato, avaliacao };
 
-    if (indexEdicao !== "") {
-        baseClientes[indexEdicao] = dadosCliente;
-    } else {
-        const idExiste = baseClientes.some(c => c.id.toLowerCase() === id.toLowerCase());
-        if (idExiste) {
-            alert("Atenção: Este CLIENT_ID já existe no banco de dados.");
-            return;
+        try {
+            if (idEdicao !== "") {
+                const { error } = await supabaseClient
+                    .from('clientes')
+                    .update(dadosCliente)
+                    .eq('id', idEdicao);
+
+                if (error) throw error;
+            } else {
+                const { error } = await supabaseClient
+                    .from('clientes')
+                    .insert([dadosCliente]);
+
+                if (error) throw error;
+            }
+
+            form.reset();
+            modal.classList.add('hidden');
+            await renderizarClientes(inputBusca ? inputBusca.value : "");
+        } catch (error) {
+            console.error(error.message);
         }
-        baseClientes.push(dadosCliente);
-    }
-
-    localStorage.setItem('clientes', JSON.stringify(baseClientes));
-
-    renderizarClientes(inputBusca.value);
-    form.reset();
-    modal.classList.add('hidden');
-});
+    });
+}
 
 renderizarClientes();
