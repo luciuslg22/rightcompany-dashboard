@@ -11,7 +11,7 @@ let graficoLinhaInstancia = null;
 async function carregarDashboard() {
     try {
         const { data: dadosServicos, error: erroServicos } = await supabaseClient
-            .from('rightcompanydashboard')
+            .from('servicos')
             .select('*');
 
         if (erroServicos) throw erroServicos;
